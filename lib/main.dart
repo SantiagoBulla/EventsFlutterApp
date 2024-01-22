@@ -1,3 +1,4 @@
+import 'package:events/config/app_routes.dart';
 import 'package:events/screen/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: LoginPage(),
-
+      title: 'Events project',
+      initialRoute: AppRoutes.login,
+      routes: AppRoutes.pages,
     );
   }
 }

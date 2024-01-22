@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 class BuildFormButton extends StatelessWidget {
   final String buttonName;
+  final VoidCallback? onPressedCallback;
 
-  const BuildFormButton({super.key, required this.buttonName});
+  const BuildFormButton({super.key, required this.buttonName, required this.onPressedCallback});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressedCallback,
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xff00abfe),
         minimumSize: const Size(350, 50),

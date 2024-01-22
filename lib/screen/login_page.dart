@@ -32,7 +32,12 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 25),
-                const BuildFormButton(buttonName: 'Login'),
+                BuildFormButton(
+                  buttonName: 'Login',
+                  onPressedCallback: () {
+                    loginRedirectHome(context);
+                  },
+                ),
                 const SizedBox(height: 40),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
@@ -50,6 +55,11 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void loginRedirectHome(BuildContext context) {
+    Navigator.of(context).pushReplacementNamed('/dashboard');
+    return;
   }
 }
 
