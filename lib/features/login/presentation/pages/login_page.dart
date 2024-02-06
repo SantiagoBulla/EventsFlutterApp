@@ -1,8 +1,9 @@
-import 'package:events/components/build_form_button.dart';
-import 'package:events/components/build_header_login.dart';
-import 'package:events/components/build_text_button.dart';
-import 'package:events/components/build_text_field.dart';
+import 'package:events/features/login/presentation/widgets/build_form_button.dart';
+import 'package:events/features/login/presentation/widgets/build_header_login.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/build_text_button.dart';
+import '../widgets/build_text_field.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

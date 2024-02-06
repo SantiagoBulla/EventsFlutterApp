@@ -1,6 +1,6 @@
-import 'package:events/config/app_routes.dart';
-import 'package:events/screen/login_page.dart';
 import 'package:flutter/material.dart';
+
+import 'core/config/app_routes.dart';
 
 void main() {
   runApp(const MyApp());

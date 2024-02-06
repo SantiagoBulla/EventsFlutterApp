@@ -1,6 +1,6 @@
 import 'package:events/screen/dashboard_page.dart';
 import 'package:events/screen/home_page.dart';
-import 'package:events/screen/login_page.dart';
+import 'package:events/features/login/presentation/pages/login_page.dart';
 
 class AppRoutes{
   static final pages = {
