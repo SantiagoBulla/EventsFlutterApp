@@ -1,0 +1,7 @@
+En Clean Architecture, el término "params" generalmente se refiere a los parámetros que se pasan a los casos de uso (Use Cases).
+Los casos de uso representan las reglas de negocio de tu aplicación y están en el corazón de la lógica de aplicación.
+Los "params" en este contexto son simplemente los datos necesarios para ejecutar un caso de uso específico.
+
+Cuando defines un caso de uso, puedes tener parámetros específicos que se requieren para realizar la operación.
+Estos parámetros son proporcionados desde las capas superiores de la arquitectura (por ejemplo, desde la capa de presentación
+o desde la capa de infraestructura) hacia la capa de casos de uso.
