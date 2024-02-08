@@ -1,6 +1,9 @@
+import 'package:events/core/params/login_params.dart';
+import 'package:events/features/login/presentation/providers/login_privider.dart';
 import 'package:events/features/login/presentation/widgets/build_form_button.dart';
 import 'package:events/features/login/presentation/widgets/build_header_login.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/build_text_button.dart';
 import '../widgets/build_text_field.dart';
@@ -10,6 +13,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -20,7 +26,11 @@ class LoginPage extends StatelessWidget {
               children: [
                 const BuildHeaderLogin(),
                 const SizedBox(height: 30),
-                _buildForm(width: 400, height: 200),
+                _buildForm(
+                    width: 400,
+                    height: 200,
+                    email: _emailController,
+                    password: _passwordController),
                 const Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -36,7 +46,8 @@ class LoginPage extends StatelessWidget {
                 BuildFormButton(
                   buttonName: 'Login',
                   onPressedCallback: () {
-                    loginRedirectHome(context);
+                    loginRedirectHome(
+                        context, [_emailController.text, _passwordController.text]);
                   },
                 ),
                 const SizedBox(height: 40),
@@ -58,22 +69,34 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  void loginRedirectHome(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed('/dashboard');
+  //metodo de login
+  void loginRedirectHome(BuildContext context, dynamic data) async {
+    AuthProvider loginProvider =
+        Provider.of<AuthProvider>(context, listen: false);
+    LoginParams params = LoginParams(email: data[0], password: data[1]);
+    loginProvider.eitherFailureOrValidateUser(params: params);
+    // Navigator.of(context).pushReplacementNamed('/dashboard');
     return;
   }
 }
 
-Widget _buildForm({required double height, required double width}) {
+Widget _buildForm(
+    {required double height,
+    required double width,
+    required TextEditingController email,
+    required TextEditingController password}) {
   return Container(
     height: height,
     width: width,
     padding: const EdgeInsets.all(15),
-    child: const Column(
+    child: Column(
       children: [
-        BuildTextField(label: 'ID User'),
-        Spacer(),
-        BuildTextField(label: 'Password')
+        BuildTextField(label: 'ID User', controller: email),
+        const Spacer(),
+        BuildTextField(
+          label: 'Password',
+          controller: password,
+        )
       ],
     ),
   );

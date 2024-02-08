@@ -1,4 +1,6 @@
+import 'package:events/features/login/presentation/providers/login_privider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'core/config/app_routes.dart';
 
@@ -15,10 +17,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Events project',
-      initialRoute: AppRoutes.login,
-      routes: AppRoutes.pages,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Events project',
+        initialRoute: AppRoutes.login,
+        routes: AppRoutes.pages,
+      ),
     );
   }
 }

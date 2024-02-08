@@ -14,7 +14,7 @@ class ServerFailure extends Failure {
       : super(errorMessage: errorMessage);
 }
 
-class CacheFailure extends Failure {
-  CacheFailure({required String errorMessage})
+class NetWorkingFailure extends Failure {
+  NetWorkingFailure({required String errorMessage})
       : super(errorMessage: errorMessage);
 }
