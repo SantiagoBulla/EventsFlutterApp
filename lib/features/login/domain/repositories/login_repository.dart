@@ -5,7 +5,7 @@ import 'package:events/features/login/domain/entities/user_entity.dart';
 
 // clase abstracta del repositorio en la capa domain que va a implementar el repositorio de la capa de data
 abstract class LoginRepository{
-  Future<Either<Failure,UserEntity>> validateUser ({required LoginParams params});
+  Future<Either<Failure,AuthEntity>> validateUser ({required LoginParams params});
 }
 
 /*

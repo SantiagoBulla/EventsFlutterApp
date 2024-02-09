@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:events/features/login/data/models/user_model.dart';
 
@@ -16,17 +15,19 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<UserModel> getUser({required LoginParams params}) async {
-    print('bandera');
-    final http = Dio(BaseOptions(
-      connectTimeout: const Duration(milliseconds: 20000), // 5 segundos
-      receiveTimeout: const Duration(milliseconds: 5000), // 5 segundos
-    ));
-
-    final response = await http.get('http://192.168.8.104:9000/api/events');
-
-
+    // final http = Dio(BaseOptions(
+    //   connectTimeout: const Duration(milliseconds: 20000), // 5 segundos
+    //   receiveTimeout: const Duration(milliseconds: 5000), // 5 segundos
+    // ));
+    print('llego');
+    final response = await dio.post(
+      'http://192.168.8.104:9000/api/auth/login',
+      data: {
+        'user': params.email,
+        'password': params.password,
+      },
+    );
     print(response);
-
     throw ServerException();
     // if (response.statusCode == 200) {
     //   print(response.data[0]);

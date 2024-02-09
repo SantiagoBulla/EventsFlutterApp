@@ -12,7 +12,7 @@ class ValidateLogin {
 
   ValidateLogin(this.repository);
 
-  Future<Either<Failure,UserEntity>> call({required LoginParams params}) async {
+  Future<Either<Failure,AuthEntity>> call({required LoginParams params}) async {
     return await repository.validateUser(params: params);
   }
 }

@@ -19,12 +19,13 @@ class LoginRepositoryImpl implements LoginRepository {
       {required this.remoteDataSource, required this.networkInfo});
 
   @override
-  Future<Either<Failure, UserEntity>> validateUser(
+  Future<Either<Failure, AuthEntity>> validateUser(
       {required LoginParams params}) async {
     if (await networkInfo.isConnected!) {
       try {
-        final user = await remoteDataSource.getUser(params: params);
-        return Right(user);
+        final userValidation = await remoteDataSource.getUser(params: params);
+        // TODO almacenar el token en el flutter_secure_storage
+        return Right(userValidation);
       } on ServerException {
         return Left(ServerFailure(
             errorMessage: 'Server Failure while validating user'));

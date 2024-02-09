@@ -5,14 +5,13 @@ import 'package:events/core/errors/failure.dart';
 import 'package:events/features/login/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/connection/dio_base_options.dart';
 import '../../../../core/params/login_params.dart';
 import '../../data/datasources/user_remote_data_source.dart';
 import '../../data/repositories/login_repository_impl.dart';
 import '../../domain/usecases/validate_login.dart';
 
 class AuthProvider extends ChangeNotifier {
-  UserEntity? user;
+  AuthEntity? user;
   Failure? failure;
 
   AuthProvider({
@@ -26,9 +25,9 @@ class AuthProvider extends ChangeNotifier {
       networkInfo: NetworkInfoImpl(DataConnectionChecker()),
     );
 
-    final failureOrUser = await ValidateLogin(repository).call(params: params);
+    final failureOrToken = await ValidateLogin(repository).call(params: params);
 
-    failureOrUser.fold(
+    failureOrToken.fold(
       (newFailure) {
         user = null;
         failure = newFailure;

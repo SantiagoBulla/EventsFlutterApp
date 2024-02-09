@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../widgets/build_text_button.dart';
 import '../widgets/build_text_field.dart';
 
+import 'package:http/http.dart' as http;
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -45,7 +47,14 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 25),
                 BuildFormButton(
                   buttonName: 'Login',
-                  onPressedCallback: () {
+                  onPressedCallback: () async {
+                    // print('funcion desencadena login');
+                    // var res = await http.get(Uri.http('192.168.8.104:9000', 'api/events'));
+                    // print(res.body);
+                    // var url = 'http://192.168.8.104:9000/api/events';
+                    // var response = await http.get(Uri.parse(url));
+                    // print('Response status: ${response.statusCode}');
+                    // print('Response body: ${response.body}');
                     loginRedirectHome(
                         context, [_emailController.text, _passwordController.text]);
                   },
@@ -71,6 +80,7 @@ class LoginPage extends StatelessWidget {
 
   //metodo de login
   void loginRedirectHome(BuildContext context, dynamic data) async {
+    print('Entro a la funcion login');
     AuthProvider loginProvider =
         Provider.of<AuthProvider>(context, listen: false);
     LoginParams params = LoginParams(email: data[0], password: data[1]);
