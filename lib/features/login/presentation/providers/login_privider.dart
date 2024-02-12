@@ -2,6 +2,7 @@ import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:events/core/connection/network_info.dart';
 import 'package:events/core/errors/failure.dart';
+import 'package:events/features/login/domain/entities/auth_entity.dart';
 import 'package:events/features/login/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 

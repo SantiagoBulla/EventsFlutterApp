@@ -80,7 +80,6 @@ class LoginPage extends StatelessWidget {
 
   //metodo de login
   void loginRedirectHome(BuildContext context, dynamic data) async {
-    print('Entro a la funcion login');
     AuthProvider loginProvider =
         Provider.of<AuthProvider>(context, listen: false);
     LoginParams params = LoginParams(email: data[0], password: data[1]);

@@ -1,5 +1,5 @@
 
-class AuthEntity {
+class UserEntity {
   final int id;
   final String names;
   final String surnames;
@@ -9,7 +9,7 @@ class AuthEntity {
   final int status;
   final int rol;
 
-  AuthEntity(
+  UserEntity(
       {required this.id,
       required this.names,
       required this.surnames,

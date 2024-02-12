@@ -1,7 +1,7 @@
 import 'package:events/core/constants/user_constants.dart';
 import 'package:events/features/login/domain/entities/user_entity.dart';
 
-class UserModel extends AuthEntity {
+class UserModel extends UserEntity {
   UserModel(
       {required super.id,
       required super.names,
