@@ -15,11 +15,11 @@ import '../../data/repositories/login_repository_impl.dart';
 import '../../domain/usecases/validate_login.dart';
 
 class AuthProvider extends ChangeNotifier {
-  AuthEntity? user;
+  String? id;
   Failure? failure;
 
   AuthProvider({
-    this.user,
+    this.id,
     this.failure,
   });
 
@@ -40,7 +40,7 @@ class AuthProvider extends ChangeNotifier {
         notifyListeners();
       },
       (userData) {
-        user = userData;
+        id = userData.id;
         notifyListeners();
       },
     );

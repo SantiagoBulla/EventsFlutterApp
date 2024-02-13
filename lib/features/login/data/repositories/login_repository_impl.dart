@@ -7,11 +7,9 @@ import 'package:events/core/params/login_params.dart';
 import 'package:events/features/login/data/datasources/user_remote_data_source.dart';
 import 'package:events/features/login/domain/entities/auth_entity.dart';
 
-import 'package:events/features/login/domain/entities/user_entity.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../core/connection/network_info.dart';
-import '../../../../core/errors/exceptions.dart';
 import '../../domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
@@ -29,7 +27,6 @@ class LoginRepositoryImpl implements LoginRepository {
         final userValidation = await remoteDataSource.validateUser(params: params);
         const storage = FlutterSecureStorage();
         await storage.write(key: userValidation.id, value: userValidation.token);
-
         return Right(userValidation);
       } on DioException catch (e){
         return Left(ServerFailure(

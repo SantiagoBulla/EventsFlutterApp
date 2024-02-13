@@ -1,61 +1,15 @@
-import 'package:events/screen/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../features/skeleton/privider/selected_page_provider.dart';
+import '../privider/selected_page_provider.dart';
 
-class DashBoardPage extends StatefulWidget {
-  const DashBoardPage({super.key});
-
-  @override
-  State<DashBoardPage> createState() => _DashBoardPageState();
-}
-
-class _DashBoardPageState extends State<DashBoardPage> {
-  Menus currentIndex = Menus.home;
+class CustomBottomNavigator extends StatelessWidget {
+  const CustomBottomNavigator({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        extendBody: true,
-        body: pages()[currentIndex.index],
-        bottomNavigationBar: MyBottomNavigator(
-          currentIndexIcon: currentIndex,
-          onTap: (value) {
 
-            //cuando se llamo el callback se trajo la opcion del menu = value y se ejcuto el setState
-            setState(() {
-              currentIndex = value;
-            });
-          },
-        ));
-  }
-
-  pages() => [
-        HomePage(),
-        Center(
-          child: Text('ARCHIVE'),
-        ),
-        Center(
-          child: Text('PROFILE'),
-        ),
-      ];
-}
-
-enum Menus { home, archive, profile }
-
-class MyBottomNavigator extends StatelessWidget {
-  final Menus currentIndexIcon;
-
-  //Esto indica que onTap es una función que toma un argumento de tipo Menus y no devuelve nada.
-  final ValueChanged<Menus> onTap;
-
-  const MyBottomNavigator(
-      {super.key, required this.currentIndexIcon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Container(
@@ -65,7 +19,6 @@ class MyBottomNavigator extends StatelessWidget {
             border: Border.all(
                 color: Color(0xff00abfe),
                 width: 1.5,
-
                 style: BorderStyle.solid)),
         child: Row(
           children: [
@@ -77,17 +30,26 @@ class MyBottomNavigator extends StatelessWidget {
                 icon: 'assets/svg/add.svg',
                 color: 0xff36ae62),
             ButtomNavigationItem(
-                onPressIcon: () => onTap(Menus.home),
+                onPressIcon: () => {
+                      Provider.of<SelectedPageProvider>(context, listen: false)
+                          .changePage(0)
+                    },
                 size: 40,
                 icon: 'assets/svg/home.svg',
                 color: 0xff00abfe),
             ButtomNavigationItem(
-                onPressIcon: () => onTap(Menus.archive),
+                onPressIcon: () => {
+                      Provider.of<SelectedPageProvider>(context, listen: false)
+                          .changePage(1)
+                    },
                 size: 40,
                 icon: 'assets/svg/archive.svg',
                 color: 0xff00abfe),
             ButtomNavigationItem(
-                onPressIcon: () => onTap(Menus.profile),
+                onPressIcon: () => {
+                      Provider.of<SelectedPageProvider>(context, listen: false)
+                          .changePage(2)
+                    },
                 size: 40,
                 icon: 'assets/svg/user.svg',
                 color: 0xff00abfe),

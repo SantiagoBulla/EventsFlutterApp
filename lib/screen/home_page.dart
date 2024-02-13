@@ -43,14 +43,14 @@ class HomePage extends StatelessWidget {
         Provider.of<AuthProvider>(context, listen: false);
 
     const storage = FlutterSecureStorage();
-    final String? token = await storage.read(key: loginProvider.user!.id);
+    final String? token = await storage.read(key: loginProvider.id.toString());
 
     //await Future.delayed(const Duration(seconds: 2));
 
     if (token != null) {
-      return 'El token del usuario ${loginProvider.user!.id} es $token';
+      return 'El token del usuario ${loginProvider.id} es $token';
     } else {
-      return 'El token del usuario ${loginProvider.user!.id} es NULL';
+      return 'El token del usuario ${loginProvider.id} es NULL';
     }
   }
 }
