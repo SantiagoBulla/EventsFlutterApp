@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:events/core/connection/network_info.dart';
@@ -20,25 +23,27 @@ class AuthProvider extends ChangeNotifier {
     this.failure,
   });
 
-  void eitherFailureOrValidateUser({required LoginParams params}) async {
+  Future<Map<String, dynamic>> eitherFailureOrValidateUser(
+      {required LoginParams params}) async {
     LoginRepositoryImpl repository = LoginRepositoryImpl(
       remoteDataSource: UserRemoteDataSourceImpl(dio: Dio()),
       networkInfo: NetworkInfoImpl(DataConnectionChecker()),
     );
 
     final failureOrToken = await ValidateLogin(repository).call(params: params);
+    Map<String, dynamic> response = {'status': true, 'message': 'Validado'};
 
     failureOrToken.fold(
-      (newFailure) {
-        user = null;
-        failure = newFailure;
+      (failure) {
+        response = {'status': false, 'message': failure.errorMessage};
         notifyListeners();
       },
       (userData) {
         user = userData;
-        failure = null;
         notifyListeners();
       },
     );
+
+    return response;
   }
 }

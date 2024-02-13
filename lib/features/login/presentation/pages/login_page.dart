@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:events/core/params/login_params.dart';
 import 'package:events/features/login/presentation/providers/login_privider.dart';
 import 'package:events/features/login/presentation/widgets/build_form_button.dart';
@@ -5,18 +6,17 @@ import 'package:events/features/login/presentation/widgets/build_header_login.da
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/utils/alerts.dart';
 import '../widgets/build_text_button.dart';
 import '../widgets/build_text_field.dart';
-
-import 'package:http/http.dart' as http;
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -31,8 +31,8 @@ class LoginPage extends StatelessWidget {
                 _buildForm(
                     width: 400,
                     height: 200,
-                    email: _emailController,
-                    password: _passwordController),
+                    email: emailController,
+                    password: passwordController),
                 const Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -48,15 +48,15 @@ class LoginPage extends StatelessWidget {
                 BuildFormButton(
                   buttonName: 'Login',
                   onPressedCallback: () async {
-                    // print('funcion desencadena login');
-                    // var res = await http.get(Uri.http('192.168.8.104:9000', 'api/events'));
-                    // print(res.body);
-                    // var url = 'http://192.168.8.104:9000/api/events';
-                    // var response = await http.get(Uri.parse(url));
-                    // print('Response status: ${response.statusCode}');
-                    // print('Response body: ${response.body}');
-                    loginRedirectHome(
-                        context, [_emailController.text, _passwordController.text]);
+                    final value = await loginRedirectHome(context,
+                        [emailController.text, passwordController.text]);
+                    if (!context.mounted) return;
+                    if (value['status']) {
+                      Navigator.of(context).pushReplacementNamed('/dashboard');
+                    } else {
+                      dispatchAlert(context, 'Acceso denegado',
+                          value['message'], 'Aceptar');
+                    }
                   },
                 ),
                 const SizedBox(height: 40),
@@ -78,16 +78,18 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  //metodo de login
-  void loginRedirectHome(BuildContext context, dynamic data) async {
+  Future<Map<String, dynamic>> loginRedirectHome(
+      BuildContext context, dynamic data) async {
     AuthProvider loginProvider =
         Provider.of<AuthProvider>(context, listen: false);
     LoginParams params = LoginParams(email: data[0], password: data[1]);
-    loginProvider.eitherFailureOrValidateUser(params: params);
-    // Navigator.of(context).pushReplacementNamed('/dashboard');
-    return;
+    final failureOrToken =
+        await loginProvider.eitherFailureOrValidateUser(params: params);
+    return failureOrToken;
   }
 }
+
+
 
 Widget _buildForm(
     {required double height,
