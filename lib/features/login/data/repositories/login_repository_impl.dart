@@ -8,6 +8,7 @@ import 'package:events/features/login/data/datasources/user_remote_data_source.d
 import 'package:events/features/login/domain/entities/auth_entity.dart';
 
 import 'package:events/features/login/domain/entities/user_entity.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../core/connection/network_info.dart';
 import '../../../../core/errors/exceptions.dart';
@@ -26,7 +27,9 @@ class LoginRepositoryImpl implements LoginRepository {
     if (await networkInfo.isConnected!) {
       try {
         final userValidation = await remoteDataSource.validateUser(params: params);
-        // TODO almacenar el token en el flutter_secure_storage
+        const storage = FlutterSecureStorage();
+        await storage.write(key: userValidation.id, value: userValidation.token);
+
         return Right(userValidation);
       } on DioException catch (e){
         return Left(ServerFailure(
