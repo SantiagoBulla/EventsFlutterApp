@@ -89,8 +89,6 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-
-
 Widget _buildForm(
     {required double height,
     required double width,
