@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:events/core/errors/failure.dart';
 
 import 'package:events/core/params/login_params.dart';
-import 'package:events/features/login/data/datasources/user_remote_data_source.dart';
+import 'package:events/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:events/features/login/domain/entities/auth_entity.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

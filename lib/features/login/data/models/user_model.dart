@@ -1,5 +1,5 @@
 import 'package:events/core/constants/user_constants.dart';
-import 'package:events/features/login/domain/entities/user_entity.dart';
+import 'package:events/features/user/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel(

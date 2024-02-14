@@ -1,4 +1,3 @@
-
 class UserEntity {
   final int id;
   final String names;
@@ -19,5 +18,5 @@ class UserEntity {
       required this.status,
       required this.rol});
 
-  // ! si es necesario agregar un metodo que transforme de modelo a entidad
+// ! si es necesario agregar un metodo que transforme de modelo a entidad
 }
