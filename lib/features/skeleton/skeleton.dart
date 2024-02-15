@@ -1,6 +1,6 @@
 import 'package:events/features/skeleton/privider/selected_page_provider.dart';
 import 'package:events/features/skeleton/widget/custom_navigator_bar.dart';
-import 'package:events/screen/profile_page.dart';
+import 'package:events/features/profile/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +50,7 @@ class _SkeletonState extends State<Skeleton> {
   Widget build(BuildContext context) {
     int page = Provider.of<SelectedPageProvider>(context).selectedPage;
     return Scaffold(
-      extendBody: true,
+      // extendBody: true,
       body: pages[page],
       bottomNavigationBar: const CustomBottomNavigator(),
     );

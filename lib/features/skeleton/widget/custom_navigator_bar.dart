@@ -13,7 +13,7 @@ class CustomBottomNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<SelectedPageProvider>(context, listen: false);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      padding: const EdgeInsets.only(top: 2.5, right: 15, left: 15, bottom: 10),
       child: Container(
         height: 80,
         decoration: BoxDecoration(

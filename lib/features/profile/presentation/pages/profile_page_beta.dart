@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
-import '../features/login/presentation/providers/login_privider.dart';
-import '../features/user/presentation/provider/user_provider.dart';
+import '../../../login/presentation/providers/login_privider.dart';
+import '../../../user/presentation/provider/user_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
