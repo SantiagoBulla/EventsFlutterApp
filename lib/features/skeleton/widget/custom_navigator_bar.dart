@@ -1,7 +1,5 @@
-import 'package:events/features/user/domain/params/user_params.dart';
 import 'package:events/features/user/presentation/provider/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../../login/presentation/providers/login_privider.dart';
@@ -28,6 +26,7 @@ class CustomBottomNavigator extends StatelessWidget {
           children: [
             ButtomNavigationItem(
                 onPressIcon: () async {
+                  print('add envent');
                   // TODO implementar formulario de agregar evento
                   // TODO llamar user provider para obtener datos de usuario
                 },
@@ -40,7 +39,7 @@ class CustomBottomNavigator extends StatelessWidget {
                 icon: 'assets/svg/home.svg',
                 color: 0xff00abfe),
             ButtomNavigationItem(
-                onPressIcon: () => {provider.changePage(2)},
+                onPressIcon: () => {provider.changePage(1)},
                 size: 40,
                 icon: 'assets/svg/archive.svg',
                 color: 0xff00abfe),

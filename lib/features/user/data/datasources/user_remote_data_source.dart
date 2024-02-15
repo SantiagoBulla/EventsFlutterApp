@@ -29,6 +29,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       }
       setupDio(params.token);
       final response = await dio.get('$baseUrl/user/${params.idUser}');
-      return UserModel.fromJson(response.data);
+      return UserModel.fromJson(response.data[0]);
   }
 }

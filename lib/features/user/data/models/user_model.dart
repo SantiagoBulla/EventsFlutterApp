@@ -14,29 +14,29 @@ class UserModel extends UserEntity {
 
   // transforma tipo json en un modelo
   factory UserModel.fromJson(Map<String, dynamic> json) {
-      return UserModel(
-          id: json[uId],
-          names: json[uNames],
-          surnames: json[uSurnames],
-          email: json[uEmail],
-          phone: json[uPhone],
-          password: json[uPassword],
-          status: json[uStatus],
-          rol: json[uIdRolFK],
-      );
+    return UserModel(
+      id: int.parse(json[uId]),
+      names: json[uNames],
+      surnames: json[uSurnames],
+      email: json[uEmail],
+      phone: json[uPhone],
+      password: json[uPassword],
+      status: json[uStatus],
+      rol: json[uIdRolFK],
+    );
   }
 
   // convierte el objeto en un mapa
   Map<String, dynamic> toJson() {
-      return {
-          uId: id,
-          uNames: names,
-          uSurnames: surnames,
-          uEmail: email,
-          uPhone: phone,
-          uPassword: password,
-          uStatus: status,
-          uIdRolFK: rol
-      };
+    return {
+      uId: id,
+      uNames: names,
+      uSurnames: surnames,
+      uEmail: email,
+      uPhone: phone,
+      uPassword: password,
+      uStatus: status,
+      uIdRolFK: rol
+    };
   }
 }

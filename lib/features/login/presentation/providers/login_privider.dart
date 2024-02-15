@@ -26,7 +26,6 @@ class AuthProvider extends ChangeNotifier {
     );
 
     final failureOrToken = await ValidateLogin(repository).call(params: params);
-    print(failureOrToken);
     Map<String, dynamic> response = {'status': true, 'message': 'Validado'};
 
     failureOrToken.fold(
