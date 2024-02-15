@@ -1,12 +1,7 @@
-import 'dart:ffi';
-
-import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:events/core/connection/network_info.dart';
 import 'package:events/core/errors/failure.dart';
-import 'package:events/features/login/domain/entities/auth_entity.dart';
-import 'package:events/features/user/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/params/login_params.dart';
@@ -26,7 +21,7 @@ class AuthProvider extends ChangeNotifier {
   Future<Map<String, dynamic>> eitherFailureOrValidateUser(
       {required LoginParams params}) async {
     LoginRepositoryImpl repository = LoginRepositoryImpl(
-      remoteDataSource: UserRemoteDataSourceImpl(dio: Dio()),
+      remoteDataSource: LoginRemoteDataSourceImpl(dio: Dio()),
       networkInfo: NetworkInfoImpl(DataConnectionChecker()),
     );
 

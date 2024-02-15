@@ -13,7 +13,7 @@ import '../../../../core/connection/network_info.dart';
 import '../../domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
-  final UserRemoteDataSource remoteDataSource;
+  final LoginRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
   LoginRepositoryImpl(

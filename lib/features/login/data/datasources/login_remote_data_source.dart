@@ -1,20 +1,21 @@
 import 'package:dio/dio.dart';
+import 'package:events/core/constants/constants.dart';
 import 'package:events/features/login/data/models/AuthModel.dart';
 import '../../../../core/params/login_params.dart';
 
-abstract class UserRemoteDataSource {
+abstract class LoginRemoteDataSource {
   Future<AuthModel> validateUser({required LoginParams params});
 }
 
-class UserRemoteDataSourceImpl implements UserRemoteDataSource {
+class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
   final Dio dio;
 
-  UserRemoteDataSourceImpl({required this.dio});
+  LoginRemoteDataSourceImpl({required this.dio});
 
   @override
   Future<AuthModel> validateUser({required LoginParams params}) async {
     final response = await dio.post(
-      'http://192.168.8.104:9000/api/auth/login',
+      '$baseUrl/auth/login',
       data: {
         'user': params.email,
         'password': params.password,
