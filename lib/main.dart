@@ -1,3 +1,4 @@
+import 'package:events/features/events/presentation/provider/events_provider.dart';
 import 'package:events/features/login/presentation/providers/login_privider.dart';
 import 'package:events/features/user/presentation/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EventsProvider(),
         ),
       ],
       child: MaterialApp(

@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 
 import 'package:events/features/login/presentation/providers/login_privider.dart';
 import '../../screen/home_page.dart';
+import '../events/domain/params/events_params.dart';
+import '../events/presentation/provider/events_provider.dart';
 import '../user/domain/params/user_params.dart';
 import '../user/presentation/provider/user_provider.dart';
 
@@ -44,6 +46,13 @@ class _SkeletonState extends State<Skeleton> {
         token: token.toString(), idUser: providerLogin.id.toString());
     providerUser.eitherFailureOrUserData(
         params: params); //llamar el metodo del provider para obtener el usuario
+    initEventsData(token.toString(), providerLogin.id.toString());
+  }
+
+  void initEventsData(String token, String idUser) async {
+    var providerEvents = Provider.of<EventsProvider>(context, listen: false);
+    final params = GetAllEventsByUser(token: token, idUserFK: idUser);
+    providerEvents.eitherFailureOrEvents(params: params);
   }
 
   @override
