@@ -15,7 +15,7 @@ class EventsProvider extends ChangeNotifier {
 
   EventsProvider({this.eventsList, this.failure});
 
-  void eitherFailureOrEvents({required GetAllEventsByUser params}) async {
+  Future<void> eitherFailureOrEvents({required GetAllEventsByUser params}) async {
     EventRepositoryImpl repository = EventRepositoryImpl(
       remoteDataSource: EventRemoteDataSourceImpl(dio: Dio()),
       networkInfo: NetworkInfoImpl(DataConnectionChecker()),

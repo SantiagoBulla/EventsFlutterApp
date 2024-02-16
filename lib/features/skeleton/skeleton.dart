@@ -27,14 +27,15 @@ class Skeleton extends StatefulWidget {
   State<Skeleton> createState() => _SkeletonState();
 }
 
+// TODO validar el initState y saber cual el el widget que carga el spinner
 class _SkeletonState extends State<Skeleton> {
   @override //Ciclo de vida -> inicializar el usuario
   void initState() {
     super.initState();
-    initUserData();
+    // initUserData();
   }
 
-  void initUserData() async {
+  Future<void> initUserData() async {
     //metodo para inicializar el usuario logueado
     //obtener una instancia del provider
     var providerUser = Provider.of<UserProvider>(context, listen: false);
@@ -46,13 +47,15 @@ class _SkeletonState extends State<Skeleton> {
         token: token.toString(), idUser: providerLogin.id.toString());
     providerUser.eitherFailureOrUserData(
         params: params); //llamar el metodo del provider para obtener el usuario
-    initEventsData(token.toString(), providerLogin.id.toString());
+    await Future(() => providerUser.user != null);
+    await initEventsData(token.toString(), providerLogin.id.toString());
   }
 
-  void initEventsData(String token, String idUser) async {
+  Future<void> initEventsData(String token, String idUser) async {
     var providerEvents = Provider.of<EventsProvider>(context, listen: false);
     final params = GetAllEventsByUser(token: token, idUserFK: idUser);
-    providerEvents.eitherFailureOrEvents(params: params);
+    await providerEvents.eitherFailureOrEvents(params: params);
+    await Future(() => providerEvents.eventsList != null);
   }
 
   @override
@@ -60,7 +63,18 @@ class _SkeletonState extends State<Skeleton> {
     int page = Provider.of<SelectedPageProvider>(context).selectedPage;
     return Scaffold(
       // extendBody: true,
-      body: pages[page],
+      body: FutureBuilder(
+        future: initUserData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // Aquí puedes construir la interfaz de usuario después de la inicialización
+            return pages[page];
+          } else {
+            // Puedes mostrar un indicador de carga mientras se inicializa
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
       bottomNavigationBar: const CustomBottomNavigator(),
     );
   }
