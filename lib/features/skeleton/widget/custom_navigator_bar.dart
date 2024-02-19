@@ -25,10 +25,8 @@ class CustomBottomNavigator extends StatelessWidget {
         child: Row(
           children: [
             ButtomNavigationItem(
-                onPressIcon: () async {
-                  print('add envent');
-                  // TODO implementar formulario de agregar evento
-                  // TODO llamar user provider para obtener datos de usuario
+                onPressIcon: () {
+                  Navigator.of(context).pushNamed('/event-form');
                 },
                 size: 60,
                 icon: 'assets/svg/add.svg',

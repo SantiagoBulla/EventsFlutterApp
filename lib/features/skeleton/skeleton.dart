@@ -6,7 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import 'package:events/features/login/presentation/providers/login_privider.dart';
-import '../../screen/home_page.dart';
+import '../events/presentation/pages/home_page.dart';
 import '../events/domain/params/events_params.dart';
 import '../events/presentation/provider/events_provider.dart';
 import '../user/domain/params/user_params.dart';

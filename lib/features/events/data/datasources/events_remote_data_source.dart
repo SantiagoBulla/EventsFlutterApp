@@ -30,7 +30,9 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
     }
 
     setupDio(params.token);
+    print('hola llego hasta aqui v2');
     final response = await dio.get('$baseUrl/events/${params.idUserFK}');
+    print(response.data);
     final List<EventModel> lista = List.from(
       response.data.map((eventData) => EventModel.fromJson(eventData)),
     );

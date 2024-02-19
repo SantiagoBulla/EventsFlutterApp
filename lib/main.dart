@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Events project',
         initialRoute: AppRoutes.login,
         routes: AppRoutes.pages,
