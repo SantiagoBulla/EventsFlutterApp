@@ -1,27 +1,38 @@
 class EventEntity {
-  final int id;
-  final String title;
-  final String description;
-  final DateTime date;
-  final String idUser;
-  final int countdown;
+  int id;
+  String title;
+  String description;
+  DateTime date;
+  String idUser;
+  int countdown;
 
-  EventEntity(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.date,
-      required this.idUser,
-      required this.countdown});
-}
+  EventEntity({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.idUser,
+    required this.countdown,
+  });
 
-/*
-{
-    idEvent: 5,
-    eventName: 'Crear eventos',
-    eventDescription: 'formulario de crear eventos en la app flutter ',
-    eventDate: '2024-02-25',
-    idUserFK: '321',
-    countdown: 9
+  // Métodos o setters para actualizar los valores
+  void updateTitle(String newTitle) {
+    title = newTitle;
   }
-*/
+
+  void updateDescription(String newDescription) {
+    description = newDescription;
+  }
+
+  void updateDate(DateTime newDate) {
+    date = newDate;
+  }
+
+  void updateIdUser(String newIdUser) {
+    idUser = newIdUser;
+  }
+
+  void updateCountdown(int newCountdown) {
+    countdown = newCountdown;
+  }
+}
