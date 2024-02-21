@@ -1,4 +1,3 @@
-
 String uId = "idUser";
 String uIdToken = "sub";
 String uNames = "userNames";

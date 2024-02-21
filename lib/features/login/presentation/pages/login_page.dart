@@ -51,7 +51,7 @@ class LoginPage extends StatelessWidget {
                         [emailController.text, passwordController.text]);
                     if (!context.mounted) return;
                     if (value['status']) {
-                      Navigator.of(context).pushReplacementNamed('/dashboard');
+                      Navigator.of(context).pushReplacementNamed('/skeleton');
                     } else {
                       dispatchAlert(context, 'Acceso denegado',
                           value['message'], 'Aceptar');

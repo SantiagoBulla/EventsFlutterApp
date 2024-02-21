@@ -1,4 +1,7 @@
+import 'package:events/features/events/domain/params/events_params.dart';
+import 'package:events/features/events/presentation/provider/events_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../../../skeleton/widget/custom_exit_button.dart';
@@ -35,29 +38,6 @@ class ProfilePage extends StatelessWidget {
                       textButton: 'Salir',
                       iconButton: Icons.arrow_back_sharp,
                     ),
-                    // TextButton(
-                    //   onPressed: () {
-                    //     print('Cerrar sesion');
-                    //   },
-                    //   style: TextButton.styleFrom(
-                    //     maximumSize: const Size.fromWidth(100),
-                    //     backgroundColor: Colors.white,
-                    //     // Color de fondo del botón
-                    //     padding:
-                    //         const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                    //     // Padding dentro del botón
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius:
-                    //           BorderRadius.circular(10), // Bordes redondeados
-                    //     ),
-                    //   ),
-                    //   child: const Row(
-                    //     children: [
-                    //       Icon(Icons.arrow_back_sharp),
-                    //       Expanded(child: Text('Salir')),
-                    //     ],
-                    //   ),
-                    // ),
                     const SizedBox(
                       height: 15,
                     ),
@@ -66,8 +46,9 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           Container(
                             color: Colors.white,
-                            height: 100,
-                            width: 100,
+                            height: 125,
+                            width: 125,
+                            child: Center(child: Text('Photo')),
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -77,7 +58,11 @@ class ProfilePage extends StatelessWidget {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text(user.user!.email)
+                          Text(
+                            user.user!.email,
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.white54),
+                          ),
                         ],
                       ),
                     )
@@ -93,12 +78,59 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     ProfileOptionButton(
+                        clickAction: () async {
+                          // var providerUser =
+                          //     Provider.of<UserProvider>(context, listen: false);
+                          // var providerEvents = Provider.of<EventsProvider>(
+                          //     context,
+                          //     listen: false);
+                          // // obetener el token y generar los params para el provider
+                          // const storage = FlutterSecureStorage();
+                          // final token = await storage.read(
+                          //     key: providerUser.user!.id.toString());
+                          // final params = GetAllEventsByUser(
+                          //     token: token!,
+                          //     idUserFK: providerUser.user!.id.toString());
+                          // providerEvents.eitherFailureOrEvents(params: params);
+                          print('cambio contraseña');
+                        },
+                        description: 'Cambiar constraseña',
+                        iconButton: Icons.lock),
+                    const SizedBox(height: 15),
+                    ProfileOptionButton(
                         clickAction: () {
                           print('click en cambiar contraseña');
                         },
                         description: 'Cambiar constraseña',
                         iconButton: Icons.lock),
                     const SizedBox(height: 15),
+                    ProfileOptionButton(
+                        clickAction: () {
+                          print('click en cambiar contraseña');
+                        },
+                        description: 'Cambiar constraseña',
+                        iconButton: Icons.lock),
+                    const SizedBox(height: 15),
+                    ProfileOptionButton(
+                        clickAction: () {
+                          print('click en cambiar contraseña');
+                        },
+                        description: 'Cambiar constraseña',
+                        iconButton: Icons.lock),
+                    const SizedBox(height: 15),
+                    ProfileOptionButton(
+                        clickAction: () {
+                          print('click en cambiar contraseña');
+                        },
+                        description: 'Cambiar constraseña',
+                        iconButton: Icons.lock),
+                    const SizedBox(height: 15),
+                    ProfileOptionButton(
+                        clickAction: () {
+                          print('click en cambiar contraseña');
+                        },
+                        description: 'Cambiar constraseña',
+                        iconButton: Icons.lock),
                   ],
                 ),
               ),

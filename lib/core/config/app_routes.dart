@@ -1,16 +1,18 @@
+import 'package:events/features/events/presentation/pages/form/event_form.dart';
 import 'package:events/features/skeleton/skeleton.dart';
-import 'package:events/screen/home_page.dart';
+import 'package:events/features/events/presentation/pages/home_page.dart';
 import 'package:events/features/login/presentation/pages/login_page.dart';
 
 class AppRoutes{
   static final pages = {
     login: (context) => LoginPage(),
-    dashboard: (context) => Skeleton(),
+    skeleton: (context) => Skeleton(),
     home: (context) => HomePage(),
-    // events: (context) =>
+    eventForm: (context) => EventForm(),
   };
 
   static const login = '/';
-  static const dashboard = '/dashboard';
+  static const skeleton = '/skeleton';
   static const home = '/home';
+  static const eventForm = '/event-form';
 }
