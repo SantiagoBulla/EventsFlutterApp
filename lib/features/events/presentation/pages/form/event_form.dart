@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/entities/events_entity.dart';
 import '../../widgets/form/create_event_steps.dart';
-import '../../widgets/form/custom_event_form.dart';
 
 class EventForm extends StatefulWidget {
   const EventForm({super.key});
@@ -11,6 +10,7 @@ class EventForm extends StatefulWidget {
   State<EventForm> createState() => _EventFormState();
 }
 
+// TODO hacer peticion post al API para crear el evento
 class _EventFormState extends State<EventForm> {
   int _currentStepForm = 0;
 
@@ -22,18 +22,27 @@ class _EventFormState extends State<EventForm> {
   late EventEntity eventData = EventEntity(
     id: 0,
     // Puedes asignar un valor inicial según sea necesario
-    title: '',
-    description: '',
+    title: 'example',
+    description: 'example',
     date: DateTime.now(),
     // Puedes asignar un valor inicial según sea necesario
     idUser: '',
     countdown: 0, // Puedes asignar un valor inicial según sea necesario
   );
 
-  void action (value){
-    print('el value en Stepper es $value');
+  // TODO validar campos para datePicker
+  void action(value, property) {
+    switch (property) {
+      case 'title':
+        eventData.updateTitle(value);
+        break;
+      case 'description':
+        eventData.updateDescription(value);
+        break;
+    }
   }
 
+  // TODO no activar el boton de siguiente hasta que se haya escrito algo
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,20 +72,6 @@ class _EventFormState extends State<EventForm> {
           title: const Text('Overall'),
           state: _currentStepForm <= 0 ? StepState.editing : StepState.complete,
           isActive: _currentStepForm >= 0,
-          // content: Center(
-          //   child: Column(
-          //     children: <Widget>[
-          //       TextFormField(
-          //         controller: eventTitle,
-          //         decoration: InputDecoration(labelText: 'First Name'),
-          //       ),
-          //       TextFormField(
-          //         controller: eventDescription,
-          //         decoration: InputDecoration(labelText: 'Last Name'),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           content: Step1Form(action: action),
         ),
         Step(
@@ -105,8 +100,8 @@ class _EventFormState extends State<EventForm> {
           content: Center(
               child: Column(
             children: [
-              Text('${eventData.title}'),
-              Text('${eventData.description}'),
+              Text(eventData.title),
+              Text(eventData.description),
               Text('${eventData.countdown}'),
             ],
           )),

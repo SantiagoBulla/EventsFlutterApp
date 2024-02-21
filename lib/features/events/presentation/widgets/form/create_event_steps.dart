@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../domain/entities/events_entity.dart';
 
 class Step1Form extends StatelessWidget {
-  final void Function(String) action;
+  final void Function(String, dynamic) action;
 
   const Step1Form({Key? key, required this.action}) : super(key: key);
 
@@ -14,14 +14,16 @@ class Step1Form extends StatelessWidget {
         children: [
           TextFormField(
             onChanged: (value) {
-              // Actualizar el modelo cuando cambia el contenido del campo
-              //eventData.title = value;
-              print(value);
-              action('El values es $value');
+              action(value, 'title');
             },
-            decoration: InputDecoration(labelText: 'Event Title'),
+            decoration: const InputDecoration(labelText: 'Event Title'),
           ),
-          // Otros campos según sea necesario
+          TextFormField(
+            onChanged: (value) {
+              action(value, 'description');
+            },
+            decoration: const InputDecoration(labelText: 'Event Description'),
+          ),
         ],
       ),
     );
@@ -42,7 +44,6 @@ class Step2Form extends StatelessWidget {
             onChanged: (value) {
               // Actualizar el modelo cuando cambia el contenido del campo
               // eventData.description = value;
-              // TODO hacer lo de react -> un callBack que modifique los datos en el container
             },
             decoration: InputDecoration(labelText: 'Event Description'),
           ),
