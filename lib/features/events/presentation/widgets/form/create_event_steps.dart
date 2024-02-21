@@ -4,8 +4,9 @@ import '../../../domain/entities/events_entity.dart';
 
 class Step1Form extends StatelessWidget {
   final void Function(String, dynamic) action;
+  final EventEntity eventData;
 
-  const Step1Form({Key? key, required this.action}) : super(key: key);
+  const Step1Form({Key? key, required this.action, required this.eventData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +15,15 @@ class Step1Form extends StatelessWidget {
         children: [
           TextFormField(
             onChanged: (value) {
-              action(value, 'title');
+              eventData.updateDescription(value);
+              action(value, '');
             },
             decoration: const InputDecoration(labelText: 'Event Title'),
           ),
           TextFormField(
             onChanged: (value) {
-              action(value, 'description');
+              eventData.updateTitle(value);
+              action(value, '');
             },
             decoration: const InputDecoration(labelText: 'Event Description'),
           ),
@@ -40,12 +43,14 @@ class Step2Form extends StatelessWidget {
     return Form(
       child: Column(
         children: [
-          TextFormField(
-            onChanged: (value) {
-              // Actualizar el modelo cuando cambia el contenido del campo
-              // eventData.description = value;
+          CalendarDatePicker(
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now(),
+            lastDate: DateTime.now().add(const Duration(days: 365)),
+            onDateChanged: (date) {
+              // print(date.toString().split(' ')[0]); -> format YYYY-MM-DD
+              eventData.updateDate(date);
             },
-            decoration: InputDecoration(labelText: 'Event Description'),
           ),
           // Otros campos según sea necesario
         ],

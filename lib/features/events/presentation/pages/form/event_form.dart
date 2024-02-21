@@ -13,34 +13,12 @@ class EventForm extends StatefulWidget {
 // TODO hacer peticion post al API para crear el evento
 class _EventFormState extends State<EventForm> {
   int _currentStepForm = 0;
+  bool enableButton = false;
 
   final eventTitle = TextEditingController();
   final eventDescription = TextEditingController();
-  final address = TextEditingController(); // ! date picker
+  DateTime? eventDate; // ! date picker
   final postcode = TextEditingController();
-
-  late EventEntity eventData = EventEntity(
-    id: 0,
-    // Puedes asignar un valor inicial según sea necesario
-    title: 'example',
-    description: 'example',
-    date: DateTime.now(),
-    // Puedes asignar un valor inicial según sea necesario
-    idUser: '',
-    countdown: 0, // Puedes asignar un valor inicial según sea necesario
-  );
-
-  // TODO validar campos para datePicker
-  void action(value, property) {
-    switch (property) {
-      case 'title':
-        eventData.updateTitle(value);
-        break;
-      case 'description':
-        eventData.updateDescription(value);
-        break;
-    }
-  }
 
   // TODO no activar el boton de siguiente hasta que se haya escrito algo
   @override
@@ -58,7 +36,7 @@ class _EventFormState extends State<EventForm> {
         child: Stepper(
           currentStep: _currentStepForm,
           steps: formSteps(),
-          onStepContinue: () => goForward(),
+          onStepContinue: enableButton ? () => goForward() : null,
           onStepCancel: () => goBack(),
           onStepTapped: (step) => setState(() => _currentStepForm = step),
           controlsBuilder: controllerFormButtons, // custom the buttons actions
@@ -67,27 +45,62 @@ class _EventFormState extends State<EventForm> {
     );
   }
 
+  bool validateTextFields() {
+    print(eventTitle.value.text.isNotEmpty );
+    print(eventDescription.value.text.isNotEmpty);
+    if (eventTitle.value.text.isNotEmpty ||
+        eventDescription.value.text.isNotEmpty) {
+      print('entra');
+      return enableButton = true;
+    }else{
+
+      print('no entra');
+    }
+    return false;
+  }
+
   List<Step> formSteps() => [
         Step(
           title: const Text('Overall'),
           state: _currentStepForm <= 0 ? StepState.editing : StepState.complete,
           isActive: _currentStepForm >= 0,
-          content: Step1Form(action: action),
+          content: Form(
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: eventTitle,
+                  decoration: const InputDecoration(labelText: 'Event Title'),
+                  onChanged: (value) {
+                    validateTextFields();
+                  },
+                ),
+                TextFormField(
+                  controller: eventDescription,
+                  decoration:
+                      const InputDecoration(labelText: 'Event Description'),
+                  onChanged: (value) {
+                    validateTextFields();
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
         Step(
           title: const Text('Pick Date'),
           state: _currentStepForm <= 1 ? StepState.editing : StepState.complete,
           isActive: _currentStepForm >= 1,
-          content: Center(
+          content: Form(
             child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: address,
-                  decoration: InputDecoration(labelText: 'Address'),
-                ),
-                TextFormField(
-                  controller: postcode,
-                  decoration: InputDecoration(labelText: 'Post code'),
+              children: [
+                CalendarDatePicker(
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(const Duration(days: 365)),
+                  onDateChanged: (date) {
+                    // print(date.toString().split(' ')[0]); -> format YYYY-MM-DD
+                    eventDate = date;
+                  },
                 ),
               ],
             ),
@@ -100,9 +113,9 @@ class _EventFormState extends State<EventForm> {
           content: Center(
               child: Column(
             children: [
-              Text(eventData.title),
-              Text(eventData.description),
-              Text('${eventData.countdown}'),
+              Text(eventTitle.value.text),
+              Text(eventDescription.value.text),
+              Text('$eventDate'),
             ],
           )),
         ),
@@ -116,7 +129,15 @@ class _EventFormState extends State<EventForm> {
       });
     } else {
       // TODO hacer la connection el endpoint del API
-      print('Send the event to the server');
+      if (eventTitle.value.text.isEmpty ||
+          eventDescription.value.text.isEmpty ||
+          eventDate == null) {
+        print('todos los campos son obligatorios');
+      } else {
+        print(
+            '$eventDate , ${eventTitle.value.text}, ${eventDescription.value.text}');
+        print('Send the event to the server');
+      }
     }
   }
 

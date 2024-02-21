@@ -3,12 +3,14 @@ import 'package:events/features/skeleton/skeleton.dart';
 import 'package:events/features/events/presentation/pages/home_page.dart';
 import 'package:events/features/login/presentation/pages/login_page.dart';
 
+import '../../features/events/presentation/widgets/form/custom_create_new_event.dart';
+
 class AppRoutes{
   static final pages = {
     login: (context) => LoginPage(),
     skeleton: (context) => Skeleton(),
     home: (context) => HomePage(),
-    eventForm: (context) => EventForm(),
+    eventForm: (context) => CreateEventForm(),
   };
 
   static const login = '/';
