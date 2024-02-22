@@ -3,6 +3,7 @@ import 'package:events/features/skeleton/skeleton.dart';
 import 'package:events/features/events/presentation/pages/home_page.dart';
 import 'package:events/features/login/presentation/pages/login_page.dart';
 
+import '../../features/events/presentation/pages/form/eventos_form.dart';
 import '../../features/events/presentation/widgets/form/custom_create_new_event.dart';
 
 class AppRoutes{
@@ -10,7 +11,7 @@ class AppRoutes{
     login: (context) => LoginPage(),
     skeleton: (context) => Skeleton(),
     home: (context) => HomePage(),
-    eventForm: (context) => CreateEventForm(),
+    eventForm: (context) => FlutterSteps(),
   };
 
   static const login = '/';
