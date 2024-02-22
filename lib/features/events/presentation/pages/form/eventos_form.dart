@@ -40,7 +40,7 @@ class _FlutterStepsState extends State<FlutterSteps> {
           child: Stepper(
             steps: getSteps(),
             // the steps form
-            type: StepperType.horizontal,
+            type: StepperType.vertical,
             // form orientation
             currentStep: currentStep,
             // select the current step to render it into the screen
@@ -55,6 +55,7 @@ class _FlutterStepsState extends State<FlutterSteps> {
       ),
     );
   }
+
 
   void onStepContinue() {
     // the method executed when next/confirm is clicked
