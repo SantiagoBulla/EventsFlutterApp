@@ -345,7 +345,8 @@ class _PageViewFormState extends State<PageViewForm> {
                   child: Text('Verde'),
                 ),
               ],
-              decoration: InputDecoration(labelText: 'Selecciona tu color favorito'),
+              decoration:
+                  InputDecoration(labelText: 'Selecciona tu color favorito'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Por favor, selecciona tu color favorito';
