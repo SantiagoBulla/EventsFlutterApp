@@ -1,186 +1,11 @@
-// // ignore_for_file: avoid_print
-//
-// import 'package:flutter/material.dart';
-// import 'package:form_page_view/enum/progress_enum.dart';
-// import 'package:form_page_view/models/form_page_model.dart';
-// import 'package:form_page_view/form_page_view.dart';
-// import 'package:form_page_view/models/form_page_style.dart';
-//
-// /// [LIBRARY] -> https://pub.dev/packages/form_page_view
-//
-// class PageViewForm extends StatefulWidget {
-//   const PageViewForm({super.key});
-//
-//   @override
-//   State<PageViewForm> createState() => _PageViewFormState();
-// }
-//
-// class _PageViewFormState extends State<PageViewForm> {
-//   // Controllers
-//   final titleEventController = TextEditingController();
-//   final descriptionEventController = TextEditingController();
-//   final firstNameController = TextEditingController();
-//   final lastNameController = TextEditingController();
-//   DateTime? selectedDate;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // Forms keys
-//     final GlobalKey<FormState> formKeyPage1 = GlobalKey<FormState>();
-//     final GlobalKey<FormState> formKeyPage2 = GlobalKey<FormState>();
-//     final GlobalKey<FormState> formKeyPage3 = GlobalKey<FormState>();
-//
-//     Future<void> _selectDate(BuildContext context) async {
-//       final DateTime? picked = await showDatePicker(
-//         context: context,
-//         initialDate: DateTime.now(),
-//         firstDate: DateTime.now(),
-//         lastDate: DateTime(2101),
-//       );
-//
-//       if (picked != null && picked != selectedDate) {
-//         setState(() {
-//           selectedDate = picked;
-//         });
-//         // Aquí puedes realizar acciones con la fecha seleccionada
-//         print('Fecha seleccionada: $picked');
-//       }
-//     }
-//
-//     // Create a list of FormPageModel objects representing the form pages
-//     final pages = [
-//       FormPageModel(
-//         formKey: formKeyPage1,
-//         title: 'OverAll Event Information',
-//         textButton: 'Next',
-//         body: Form(
-//           key: formKeyPage1,
-//           child: Column(
-//             children: [
-//               const SizedBox(height: 20),
-//               TextFormField(
-//                 controller: titleEventController,
-//                 decoration: const InputDecoration(
-//                     labelText: 'Enter a title for the event'),
-//                 validator: (value) {
-//                   if (value == null || value.isEmpty) {
-//                     return 'Please enter a title for the event';
-//                   }
-//                   return null;
-//                 },
-//               ),
-//               const SizedBox(height: 20),
-//               Expanded(
-//                 child: TextFormField(
-//                   controller: descriptionEventController,
-//                   decoration: const InputDecoration(
-//                       labelText: 'Enter a description for the event'),
-//                   validator: (value) {
-//                     if (value == null || value.isEmpty) {
-//                       return 'Please enter a description for the event';
-//                     }
-//                     return null;
-//                   },
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//       ),
-//       FormPageModel(
-//         isButtonEnabled: false,
-//         onPressed: () {
-//           print('se dio click');
-//         },
-//         formKey: formKeyPage2,
-//         title: 'Date Event',
-//         textButton: 'Next',
-//         body: Form(
-//           key: formKeyPage2,
-//           child: Column(
-//             children: [
-//               const SizedBox(height: 20),
-//               InkWell(
-//                 onTap: () => _selectDate(context),
-//                 child: InputDecorator(
-//                   decoration: InputDecoration(
-//                     labelText: 'Select Date',
-//                     border: OutlineInputBorder(),
-//                   ),
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: <Widget>[
-//                       Text(
-//                         selectedDate != null
-//                             ? ' ${selectedDate.toString().split(' ')[0]}'
-//                             : 'Select a new date',
-//                       ),
-//                       Icon(Icons.calendar_today),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       FormPageModel(
-//         formKey: formKeyPage3,
-//         title: 'Confirm the Data',
-//         textButton: 'Next',
-//         body: Form(
-//           key: formKeyPage3,
-//           child: Column(
-//             children: [
-//               Text('Title: ${titleEventController.value.text}'),
-//               Text('Description: ${descriptionEventController.value.text}'),
-//               if (selectedDate != null)
-//                 Text(
-//                     'Selected Date: ${selectedDate!.toString().split(' ')[0]}'),
-//             ],
-//           ),
-//         ),
-//       ),
-//     ];
-//
-//     const style = FormPageStyle(
-//       backgroundColor: Colors.white,
-//       buttonHeight: 60,
-//       progressIndicatorColor: Colors.amber,
-//     );
-//
-//     return FormPageView(
-//       controller: PageController(),
-//       progress: ProgressIndicatorType.linear,
-//       pages: pages,
-//       style: style,
-//       onFormSubmitted: () {
-//         // print all the values
-//         print('Username: ${titleEventController.text}');
-//         print('First Name: ${descriptionEventController.text}');
-//         print('Selected Date: ${selectedDate!.toString().split(' ')[0]}');
-//       },
-//     );
-//   }
-// }
+import 'package:events/features/events/presentation/widgets/form/create_event_form_steps.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PageViewForm(),
-    );
-  }
-}
-
 class PageViewForm extends StatefulWidget {
+  const PageViewForm({super.key});
+
   @override
-  _PageViewFormState createState() => _PageViewFormState();
+  State<PageViewForm> createState() => _PageViewFormState();
 }
 
 class _PageViewFormState extends State<PageViewForm> {
@@ -207,7 +32,7 @@ class _PageViewFormState extends State<PageViewForm> {
     if (_currentPage < 2) {
       if (_validateCurrentPage()) {
         _pageController.nextPage(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           curve: Curves.ease,
         );
       }
@@ -240,20 +65,51 @@ class _PageViewFormState extends State<PageViewForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // title: Row(
+        //   children: [
+        //     Text('Formulario de Páginas'),
+        //     Spacer(),
+        //     CircularProgressIndicator( value: (_currentPage + 1) / 3,
+        //     color: Colors.blue,)
+        //   ],
+        // ),
         title: Text('Formulario de Páginas'),
       ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (int page) {
-          setState(() {
-            _currentPage = page;
-          });
-        },
-        children: [
-          _buildFormPage1(),
-          _buildFormPage2(),
-          _buildFormPage3(),
-        ],
+      body: Theme(
+        data: ThemeData(colorSchemeSeed: Colors.blue),
+        child: Column(
+          children: [
+            LinearProgressIndicator(
+              color: Colors.blue,
+              semanticsLabel: 'Progress',
+              borderRadius: BorderRadius.circular(50),
+              value: (_currentPage + 1) / 3, // Calcula el progreso
+            ),
+            Expanded(
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                // Deshabilita el deslizamiento
+                controller: _pageController,
+                onPageChanged: (int page) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
+                children: [
+                  SingleChildScrollView(
+                      child: CreateEventStepOne(
+                          formKeyPage: formKeyPage1,
+                          nameController: nameController,
+                          lastNameController: lastNameController,
+                          navigateForward: _navigateForward,
+                          addressController: addressController)),
+                  SingleChildScrollView(child: _buildFormPage2()),
+                  SingleChildScrollView(child: _buildFormPage3()),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
