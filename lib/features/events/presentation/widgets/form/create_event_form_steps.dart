@@ -6,17 +6,16 @@ class CreateEventStepOne extends StatefulWidget {
   final GlobalKey<FormState> formKeyPage;
   final TextEditingController nameController;
   final TextEditingController lastNameController;
+  final TextEditingController addressController;
   final VoidCallback navigateForward;
 
-  final TextEditingController addressController;
 
-  const CreateEventStepOne(
-      {super.key,
-      required this.formKeyPage,
-      required this.nameController,
-      required this.lastNameController,
-      required this.navigateForward,
-      required this.addressController});
+  const CreateEventStepOne({super.key,
+    required this.formKeyPage,
+    required this.nameController,
+    required this.lastNameController,
+    required this.navigateForward,
+    required this.addressController});
 
   @override
   State<CreateEventStepOne> createState() => _CreateEventStepOneState();
@@ -89,21 +88,22 @@ class CreateEventStepTwo extends StatefulWidget {
   final String? selectedColor;
   final VoidCallback navigateBackward;
   final VoidCallback navigateForward;
+  final void Function(String?) updateSelectedColor;
 
-  const CreateEventStepTwo(
-      {super.key,
-      required this.formKeyPage,
-      required this.descriptionController,
-      required this.selectedColor,
-      required this.navigateBackward,
-      required this.navigateForward});
+  const CreateEventStepTwo({super.key,
+    required this.formKeyPage,
+    required this.descriptionController,
+    required this.selectedColor,
+    required this.navigateBackward,
+    required this.navigateForward,
+    required this.updateSelectedColor});
 
   @override
   State<CreateEventStepTwo> createState() => _CreateEventStepTwoState();
 }
 
 class _CreateEventStepTwoState extends State<CreateEventStepTwo> {
-  String? userColor;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -119,7 +119,7 @@ class _CreateEventStepTwoState extends State<CreateEventStepTwo> {
               value: widget.selectedColor,
               onChanged: (value) {
                 setState(() {
-                  userColor = value;
+                  widget.updateSelectedColor(value);
                 });
               },
               items: [
@@ -137,7 +137,7 @@ class _CreateEventStepTwoState extends State<CreateEventStepTwo> {
                 ),
               ],
               decoration:
-                  InputDecoration(labelText: 'Selecciona tu color favorito'),
+              InputDecoration(labelText: 'Selecciona tu color favorito'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Por favor, selecciona tu color favorito';
@@ -166,12 +166,73 @@ class _CreateEventStepTwoState extends State<CreateEventStepTwo> {
                 ),
                 SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: (){
-                    widget.navigateForward;
-                    print(userColor);
-                    print(widget.selectedColor);
-                  },
+                  onPressed: widget.navigateForward,
                   child: Text('Siguiente'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+// * STEP THREE
+class CreateEventStepThree extends StatefulWidget {
+  final GlobalKey<FormState> formKeyPage;
+  final TextEditingController nameController;
+  final TextEditingController lastNameController;
+  final TextEditingController addressController;
+  final String? selectedColor;
+  final TextEditingController descriptionController;
+  final VoidCallback navigateBackward;
+  final bool Function() validateCurrentPage;
+
+  const CreateEventStepThree(
+      {super.key, required this.formKeyPage, required this.nameController, required this.lastNameController, required this.addressController, this.selectedColor, required this.descriptionController, required this.navigateBackward, required this.validateCurrentPage});
+
+  @override
+  State<CreateEventStepThree> createState() => _CreateEventStepThreeState();
+}
+
+class _CreateEventStepThreeState extends State<CreateEventStepThree> {
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: widget.formKeyPage,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Page 3 - Resumen'),
+            SizedBox(height: 20),
+            Text('Nombre: ${widget.nameController.text}'),
+            Text('Apellido: ${widget.lastNameController.text}'),
+            Text('Dirección: ${widget.addressController.text}'),
+            Text('Color Favorito: ${widget.selectedColor}'),
+            Text('Descripción: ${widget.descriptionController.text}'),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: widget.navigateBackward,
+                  child: Text('Atrás'),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    bool statusValidation = widget.validateCurrentPage();
+                    if (statusValidation) {
+                      // Puedes realizar acciones adicionales o enviar el formulario
+                      // Imprimir datos o enviarlos a través de una función, etc.
+                      print('Formulario enviado');
+                    }
+                  },
+                  child: Text('Enviar'),
                 ),
               ],
             ),

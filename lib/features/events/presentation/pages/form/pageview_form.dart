@@ -25,7 +25,7 @@ class _PageViewFormState extends State<PageViewForm> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: _currentPage);
+    _pageController = PageController(initialPage: _currentPage); // initialize the page view with the page 0
   }
 
   void _navigateForward() {
@@ -33,7 +33,7 @@ class _PageViewFormState extends State<PageViewForm> {
       if (_validateCurrentPage()) {
         _pageController.nextPage(
           duration: const Duration(milliseconds: 500),
-          curve: Curves.ease,
+          curve: Curves.easeOut,
         );
       }
     }
@@ -48,6 +48,7 @@ class _PageViewFormState extends State<PageViewForm> {
     }
   }
 
+  // validates the key form for each page and return true if all the fields are filled
   bool _validateCurrentPage() {
     switch (_currentPage) {
       case 0:
@@ -65,15 +66,15 @@ class _PageViewFormState extends State<PageViewForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Row(
-        //   children: [
-        //     Text('Formulario de Páginas'),
-        //     Spacer(),
-        //     CircularProgressIndicator( value: (_currentPage + 1) / 3,
-        //     color: Colors.blue,)
-        //   ],
-        // ),
-        title: Text('Formulario de Páginas'),
+        title: Row(
+          children: [
+            Text('Formulario de Páginas'),
+            Spacer(),
+            CircularProgressIndicator(
+                value: (_currentPage + 1) / 3, color: Colors.blue)
+          ],
+        ),
+        // title: Text('Formulario de Páginas'),
       ),
       body: Theme(
         data: ThemeData(colorSchemeSeed: Colors.blue),
@@ -87,9 +88,8 @@ class _PageViewFormState extends State<PageViewForm> {
             ),
             Expanded(
               child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                // Deshabilita el deslizamiento
-                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(), // Deshabilita el deslizamiento
+                controller: _pageController, //
                 onPageChanged: (int page) {
                   setState(() {
                     _currentPage = page;
@@ -110,124 +110,25 @@ class _PageViewFormState extends State<PageViewForm> {
                     navigateBackward: _navigateBackward,
                     navigateForward: _navigateForward,
                     selectedColor: selectedColor,
+                    updateSelectedColor: (String? color) {
+                      setState(() {
+                        selectedColor = color;
+                      });
+                    },
                   )),
-                  SingleChildScrollView(child: _buildFormPage3()),
+                  SingleChildScrollView(
+                      child: CreateEventStepThree(
+                    formKeyPage: formKeyPage3,
+                    nameController: nameController,
+                    lastNameController: lastNameController,
+                    addressController: addressController,
+                    selectedColor: selectedColor,
+                    descriptionController: descriptionController,
+                    navigateBackward: _navigateBackward,
+                    validateCurrentPage: _validateCurrentPage,
+                  )),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFormPage2() {
-    return Form(
-      key: formKeyPage2,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Page 2 - Color Favorito'),
-            SizedBox(height: 20),
-            DropdownButtonFormField<String>(
-              value: selectedColor,
-              onChanged: (value) {
-                setState(() {
-                  selectedColor = value;
-                });
-              },
-              items: [
-                DropdownMenuItem(
-                  value: 'Rojo',
-                  child: Text('Rojo'),
-                ),
-                DropdownMenuItem(
-                  value: 'Azul',
-                  child: Text('Azul'),
-                ),
-                DropdownMenuItem(
-                  value: 'Verde',
-                  child: Text('Verde'),
-                ),
-              ],
-              decoration:
-                  InputDecoration(labelText: 'Selecciona tu color favorito'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, selecciona tu color favorito';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: descriptionController,
-              decoration: InputDecoration(labelText: 'Descripción'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, ingresa una descripción';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: _navigateBackward,
-                  child: Text('Atrás'),
-                ),
-                SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: (){},
-                  child: Text('Siguiente'),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFormPage3() {
-    return Form(
-      key: formKeyPage3,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Page 3 - Resumen'),
-            SizedBox(height: 20),
-            Text('Nombre: ${nameController.text}'),
-            Text('Apellido: ${lastNameController.text}'),
-            Text('Dirección: ${addressController.text}'),
-            Text('Color Favorito: $selectedColor'),
-            Text('Descripción: ${descriptionController.text}'),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: _navigateBackward,
-                  child: Text('Atrás'),
-                ),
-                SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_validateCurrentPage()) {
-                      // Puedes realizar acciones adicionales o enviar el formulario
-                      // Imprimir datos o enviarlos a través de una función, etc.
-                      print('Formulario enviado');
-                    }
-                  },
-                  child: Text('Enviar'),
-                ),
-              ],
             ),
           ],
         ),
