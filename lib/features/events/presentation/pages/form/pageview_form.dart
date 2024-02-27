@@ -103,66 +103,17 @@ class _PageViewFormState extends State<PageViewForm> {
                           lastNameController: lastNameController,
                           navigateForward: _navigateForward,
                           addressController: addressController)),
-                  SingleChildScrollView(child: _buildFormPage2()),
+                  SingleChildScrollView(
+                      child: CreateEventStepTwo(
+                    descriptionController: descriptionController,
+                    formKeyPage: formKeyPage2,
+                    navigateBackward: _navigateBackward,
+                    navigateForward: _navigateForward,
+                    selectedColor: selectedColor,
+                  )),
                   SingleChildScrollView(child: _buildFormPage3()),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFormPage1() {
-    return Form(
-      key: formKeyPage1,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Page 1 - Información Básica'),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: nameController,
-              decoration: InputDecoration(labelText: 'Nombre'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, ingrese el nombre';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: lastNameController,
-              decoration: InputDecoration(labelText: 'Apellido'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, ingrese el apellido';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: addressController,
-              decoration: InputDecoration(labelText: 'Dirección'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, ingrese la dirección';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: _navigateForward,
-                  child: Text('Siguiente'),
-                ),
-              ],
             ),
           ],
         ),
@@ -231,7 +182,7 @@ class _PageViewFormState extends State<PageViewForm> {
                 ),
                 SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: _navigateForward,
+                  onPressed: (){},
                   child: Text('Siguiente'),
                 ),
               ],
